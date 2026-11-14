@@ -1,0 +1,27 @@
+# GPU overlay — use on NVIDIA hosts (e.g. AWS g4dn.xlarge):
+#
+#   cp .env.example .env
+#   # set DEVICE=cuda in .env
+#   docker compose -f docker-compose.yml -f docker-compose.gpu.yml up --build -d
+#
+# Requires: NVIDIA driver + NVIDIA Container Toolkit on the host.
+
+version: "3.8"
+
+services:
+  mms-stt:
+    build:
+      context: .
+      dockerfile: Dockerfile.gpu
+    image: abol-mms-stt:0.1.0-gpu
+    environment:
+      DEVICE: cuda
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+    # Compose v2 also honors this runtime flag on many hosts:
+    runtime: nvidia

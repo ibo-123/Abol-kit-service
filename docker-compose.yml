@@ -1,0 +1,38 @@
+# Service name `mms-stt` — Abol Kit sets TRANSCRIBER_URL=http://mms-stt:8000
+#
+# CPU (this laptop / t3.*):
+#   docker compose up --build
+#
+# GPU (g4dn.*):
+#   docker compose -f docker-compose.yml -f docker-compose.gpu.yml up --build -d
+
+version: "3.8"
+
+services:
+  mms-stt:
+    build: .
+    image: abol-mms-stt:0.1.0
+    container_name: mms-stt
+    ports:
+      # Localhost only — put Caddy/nginx on 80/443 in front on EC2.
+      - "127.0.0.1:8000:8000"
+    environment:
+      MODEL_ID: ${MODEL_ID:-facebook/mms-1b-all}
+      DEVICE: ${DEVICE:-cpu}
+      PORT: ${PORT:-8000}
+      MAX_UPLOAD_MB: ${MAX_UPLOAD_MB:-50}
+      HF_HOME: ${HF_HOME:-/models/hf}
+      API_KEY: ${API_KEY:-}
+      PRELOAD_LANGS: ${PRELOAD_LANGS:-amh,eng}
+      CUE_MAX_CHARS: ${CUE_MAX_CHARS:-48}
+      CUE_MAX_SECONDS: ${CUE_MAX_SECONDS:-5.0}
+      VTT_OUTPUT_DIR: ${VTT_OUTPUT_DIR:-/app/outputs/vtt}
+      CHUNK_SECONDS: ${CHUNK_SECONDS:-30}
+      CHUNK_OVERLAP_SECONDS: ${CHUNK_OVERLAP_SECONDS:-1}
+    volumes:
+      - hf-cache:/models/hf
+      - ./outputs/vtt:/app/outputs/vtt
+    restart: unless-stopped
+
+volumes:
+  hf-cache:

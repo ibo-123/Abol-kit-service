@@ -1,0 +1,15 @@
+{
+  "text": "full transcript",
+  "lang": "am",
+  "segments": [
+    { "start": 0.0, "end": 2.4, "text": "first cue" },
+    { "start": 2.4, "end": 5.1, "text": "second cue" }
+  ],
+  "sendsDataOffHost": false,
+  "model": "facebook/mms-1b-all",
+  "durationMs": 5100,
+  "needsReview": true,
+  "alignment": "ctc",
+  "vtt": "WEBVTT\n\n1\n00:00:00.000 --> 00:00:02.400\nfirst cue\n\n2\n00:00:02.400 --> 00:00:05.100\nsecond cue\n",
+  "vttPath": "/app/outputs/vtt/audio-am-20261114T120000Z.vtt"
+}

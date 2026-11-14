@@ -1,0 +1,47 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+.venv/
+venv/
+env/
+*.egg-info/
+.eggs/
+dist/
+build/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# Secrets / local env
+.env
+
+# Model + runtime caches
+.hf-cache/
+models/
+outputs/
+
+# Media uploads / local test audio (large)
+*.wav
+*.mp3
+*.m4a
+*.webm
+*.ogg
+*.flac
+*.aac
+*.opus
+*.mp4
+
+# Generated transcription artifacts
+tests/*-transcript.md
+tests/*.vtt
+*.vtt
+
+# OS / editor
+.DS_Store
+.idea/
+.vscode/
